@@ -24,8 +24,8 @@ puts "----------"
 
 
 # Your code goes here ...
-usser_store_name = STDIN.gets.chomp
+user_store_name = STDIN.gets.chomp
 
 puts Store.create(
-  name: usser_store_name
+  name: user_store_name
 ).errors.full_messages

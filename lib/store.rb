@@ -8,10 +8,22 @@ class Store < ActiveRecord::Base
 
   validate :contains_mens_or_womens_apparel
 
+  before_destroy :check_for_employees
+
+
+  private
+
   def contains_mens_or_womens_apparel
     if !mens_apparel && !womens_apparel
-      errors.add(:mens_apparel, "needs to have either men's or women's apparel...")
-      errors.add(:womens_apparel, "needs to have either men's or women's apparel...")
+      errors.add(name, "needs to have either men's or women's apparel...")
+    end
+  end
+
+  def check_for_employees
+    puts "asdasdasdasdasdasdd #{self.employees.count}"
+    if self.employees.count > 0
+      errors.add(self.name, "\n \n \n Store containing employees cannot be destroyed")
+      return false
     end
   end
 
